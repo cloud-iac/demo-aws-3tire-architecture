@@ -1,50 +1,20 @@
 module "tree_tire_web_infra" {
-  source         = "./tree_tire_web_infra"
-  pjt_name       = "aws_3_tire_web"
-  region         = "ap-northeast-2"
-  vpc_cidr_block = "10.0.0.0/16"
-  pub_alb_tire_subnets = {
-    pub_sn_01 = {
-      cidr_block           = "10.0.1.0/24"
-      availability_zone_id = "apne2-az1"
-    },
-    pub_sn_02 = {
-      cidr_block           = "10.0.11.0/24"
-      availability_zone_id = "apne2-az3"
-    },
-  }
-  pri_front_tire_subents = {
-    pri_sn_front_01 = {
-      cidr_block           = "10.0.2.0/24"
-      availability_zone_id = "apne2-az1"
-    },
-    pri_sn_front_02 = {
-      cidr_block           = "10.0.12.0/24"
-      availability_zone_id = "apne2-az3"
-    },
-  }
-  pri_back_tire_subnets = {
-    pri_sn_back_01 = {
-      cidr_block           = "10.0.3.0/24"
-      availability_zone_id = "apne2-az1"
-    },
-    pri_sn_back_02 = {
-      cidr_block           = "10.0.13.0/24"
-      availability_zone_id = "apne2-az3"
-    },
-  }
-  pri_db_tire_subnets = {
-    pri_sn_db_01 = {
-      cidr_block           = "10.0.4.0/24"
-      availability_zone_id = "apne2-az1"
-    },
-    pri_sn_db_02 = {
-      cidr_block           = "10.0.14.0/24"
-      availability_zone_id = "apne2-az3"
-    },
-  }
+  source                 = "./tree_tire_web_infra"
+  pjt_name               = var.pjt_name
+  region                 = var.region
+  vpc_cidr_block         = var.vpc_cidr_block
+  pub_alb_tire_subnets   = var.pub_alb_tire_subnets
+  pri_front_tire_subents = var.pri_front_tire_subents
+  pri_back_tire_subnets  = var.pri_back_tire_subnets
+  pri_db_tire_subnets    = var.pri_db_tire_subnets
 }
-
+module "rules_routes_configure" {
+  source          = "./rules_routes_configure"
+  igw_id          = module.tree_tire_web_infra.vpc_resources.igw_id
+  nat_gw_id       = module.tree_tire_web_infra.vpc_resources.nat_gw_id
+  security_groups = module.tree_tire_web_infra.vpc_resources.security_groups
+  routing_tables  = module.tree_tire_web_infra.vpc_resources.routing_tables
+}
 output "created_vpc" {
   value = module.tree_tire_web_infra.vpc_resources
 }
