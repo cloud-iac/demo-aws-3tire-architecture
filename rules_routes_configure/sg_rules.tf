@@ -19,7 +19,7 @@ resource "aws_security_group_rule" "ingress_bestion" {
   from_port         = each.key
   protocol          = each.value.protocol
   cidr_blocks       = each.value.cidr_blocks
-  security_group_id = local.sg_groups.front_sg
+  security_group_id = local.sg_groups.pub_bestion_sg
 }
 
 //80,443,3000 퍼블릭 alb 보안 그룹만 허용, 22 베스천 그룹 허용
@@ -30,7 +30,7 @@ resource "aws_security_group_rule" "ingress_front" {
   from_port         = each.key
   protocol          = each.value.protocol
   source_security_group_id =  local.sg_groups.pub_alb_sg
-  security_group_id = local.sg_groups.front_sg
+  security_group_id = local.sg_groups.pri_front_sg
 }
 
 //80,443 프론트 보안 그룹만 허용
@@ -40,7 +40,7 @@ resource "aws_security_group_rule" "ingress_alb_pri" {
   to_port           = each.key
   from_port         = each.key
   protocol          = each.value.protocol
-  source_security_group_id =  local.sg_groups.front_sg
+  source_security_group_id =  local.sg_groups.pri_front_sg
   security_group_id = local.sg_groups.pri_alb_sg
 }
 //80,443,8080 프라이 alb그룹만 허용
@@ -51,7 +51,7 @@ resource "aws_security_group_rule" "ingress_back" {
   from_port         = each.key
   protocol          = each.value.protocol
   source_security_group_id =  local.sg_groups.pri_alb_sg
-  security_group_id = local.sg_groups.back_sg
+  security_group_id = local.sg_groups.pri_back_sg
 }
 //3306 백엔드 보안그룹만 허용
 resource "aws_security_group_rule" "ingress_db" {
@@ -60,8 +60,8 @@ resource "aws_security_group_rule" "ingress_db" {
   to_port           = each.key
   from_port         = each.key
   protocol          = each.value.protocol
-  source_security_group_id =  local.sg_groups.back_sg
-  security_group_id = local.sg_groups.db_sg
+  source_security_group_id =  local.sg_groups.pri_back_sg
+  security_group_id = local.sg_groups.pri_db_sg
 }
 
 //모든 보안그룹 아웃바운드 설정 
