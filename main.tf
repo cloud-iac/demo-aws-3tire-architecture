@@ -31,7 +31,7 @@ module "instances" {
 output "created_vpc" {
   value = module.tree_tire_web_infra.vpc_resources
 }
-output "bestion_ip" {
+output "instance_ips" {
   value = {
     bestion = module.instances.bestion_ip
     front = module.instances.front_private_ip
