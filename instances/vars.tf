@@ -1,9 +1,6 @@
 variable "ssh-key-path" {
   type = string
 }
-variable "ssh-key-name" {
-  type = string
-}
 variable "bestion_sg_ids" {
   type = list(string)
 }

@@ -4,7 +4,6 @@ output "vpc_resources" {
     igw_id     = aws_internet_gateway.igw.id
     nat_gw_id  = aws_nat_gateway.nat_gateway.id
     nat_eip    = aws_eip.nat_eip.public_ip
-    betion_eip = aws_eip.betion_eip.public_ip
     security_groups = {
       for obj in values(aws_security_group.security_groups) : obj.tags.Name => obj.id
     }

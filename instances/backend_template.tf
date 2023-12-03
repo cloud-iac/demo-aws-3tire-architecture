@@ -12,9 +12,11 @@ resource "aws_launch_template" "back_template" {
     yum install -y docker docker-registry
     systemctl start docker.service
     systemctl enable docker.service
-    EOT 
+    EOT
   )
-
+  lifecycle {
+    create_before_destroy = true
+  }
   tags = {
     Name = "back_template"
   }

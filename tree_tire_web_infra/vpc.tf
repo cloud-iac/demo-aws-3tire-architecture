@@ -22,15 +22,6 @@ resource "aws_eip" "nat_eip" {
     Name = "nat_eip"
   }
 }
-
-#bastion-eip
-resource "aws_eip" "betion_eip" {
-  domain = "vpc"
-  tags = {
-    Name = "betion_eip"
-  }
-}
-
 #nat-gateway
 resource "aws_nat_gateway" "nat_gateway" {
   allocation_id = aws_eip.nat_eip.id

@@ -14,6 +14,9 @@ resource "aws_launch_template" "front_template" {
     systemctl enable docker.service
     EOT 
   )
+  lifecycle {
+    create_before_destroy = true
+  }
 
   tags = {
     Name = "front_template"

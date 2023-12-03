@@ -1,6 +1,3 @@
-variable "ssh-key-name" {
-  default = "aws_ec2-key"
-}
 variable "ssh-key-path" {
   default = "~/.ssh/aws_ec2.pem"
 }

@@ -6,12 +6,20 @@ resource "aws_instance" "bestion" {
   subnet_id                   = var.bestion_subnet_id
   vpc_security_group_ids      = var.bestion_sg_ids
   private_ip                  = "10.0.1.100"
+
+  user_data = <<-EOF
+  #!/bin/bash
+  echo "${file("${var.ssh-key-path}")}" > /home/ec2-user/aws_ec2.pem
+  chmod 600 /home/ec2-user/aws_ec2.pem
+  EOF
   tags = {
     Name = "bestion"
   }
 }
-resource "null_resource" "copy_pem_to_instance" {
-  provisioner "local-exec" {
-    command = "sleep 10;scp -i ${var.ssh-key-path} ${var.ssh-key-path} ec2-user@${aws_instance.bestion.public_ip}:~/.ssh/${var.ssh-key-name}"
+#bastion-eip
+resource "aws_eip" "betion_eip" {
+  instance = aws_instance.bestion.id
+  tags = {
+    Name = "betion_eip"
   }
 }

@@ -21,7 +21,6 @@ module "instances" {
   source            = "./instances"
   bestion_subnet_id = module.tree_tire_web_infra.vpc_resources.subnets["10.0.1.0/24"]
   bestion_sg_ids    = [module.tree_tire_web_infra.vpc_resources.security_groups["pub_bestion_sg"]]
-  ssh-key-name      = var.ssh-key-name
   ssh-key-path      = var.ssh-key-path
 
   front_subnet_id = module.tree_tire_web_infra.vpc_resources.subnets["10.0.2.0/24"]
@@ -66,8 +65,10 @@ output "created_vpc" {
 }
 output "instance_ips" {
   value = {
-    bestion = module.instances.bestion_ip
-    front   = module.instances.front_template_id
-    backend = module.instances.back_template_id
+    bestion     = module.instances.bestion_ip
+    front       = module.instances.front_template_id
+    backend     = module.instances.back_template_id
+    pub_alb_dns = module.lb_asg.pub_alb_dns
+    pri_alb_dns = module.lb_asg.pri_alb_dns
   }
 }
