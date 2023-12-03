@@ -1,3 +1,9 @@
+variable "ssh-key-name" {
+  default = "aws_ec2-key"
+}
+variable "ssh-key-path" {
+  default = "~/.ssh/aws_ec2.pem"
+}
 variable "pjt_name" {
   default = "aws_3_tire_web"
 }
