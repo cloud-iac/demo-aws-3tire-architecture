@@ -60,11 +60,9 @@ module "lb_asg" {
     module.tree_tire_web_infra.vpc_resources.security_groups["pri_alb_sg"]
   ]
 }
-output "created_vpc" {
-  value = module.tree_tire_web_infra.vpc_resources
-}
-output "instance_ips" {
+output "info" {
   value = {
+    infra = module.tree_tire_web_infra.vpc_resources
     bestion     = module.instances.bestion_ip
     front       = module.instances.front_template_id
     backend     = module.instances.back_template_id
