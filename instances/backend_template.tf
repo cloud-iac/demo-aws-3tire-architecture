@@ -4,7 +4,7 @@ resource "aws_launch_template" "back_template" {
   instance_type          = "t2.micro"
   key_name               = "aws-ec2"
   vpc_security_group_ids = var.backend_sg_ids
-
+  update_default_version = true
   user_data = base64encode(
     <<EOT
     #!/bin/bash
@@ -12,6 +12,9 @@ resource "aws_launch_template" "back_template" {
     yum install -y docker docker-registry
     systemctl start docker.service
     systemctl enable docker.service
+
+    docker pull lundaljung/demo-ci-cd-backend:latest
+    docker run -d --name demo-ci-cd-backend -p 8080:8080 lundaljung/demo-ci-cd-backend:latest
     EOT
   )
   lifecycle {
