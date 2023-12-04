@@ -18,7 +18,7 @@ module "route" {
   routing_tables = module.tree_tire_web_infra.vpc_resources.routing_tables
 }
 module "instances" {
-  source            = "./instances"
+  source            = "./instance"
   bestion_subnet_id = module.tree_tire_web_infra.vpc_resources.subnets["10.0.1.0/24"]
   bestion_sg_ids    = [module.tree_tire_web_infra.vpc_resources.security_groups["pub_bestion_sg"]]
   ssh-key-path      = var.ssh-key-path
@@ -58,6 +58,19 @@ module "lb_asg" {
   ]
   pri_alb_sg_groups = [
     module.tree_tire_web_infra.vpc_resources.security_groups["pri_alb_sg"]
+  ]
+}
+module "rds" {
+  source = "./rds"
+  db_name = "employee"
+  username = "admin"
+  password = "password"
+  subnet_ids = [
+    module.tree_tire_web_infra.vpc_resources.subnets["10.0.4.0/24"],
+    module.tree_tire_web_infra.vpc_resources.subnets["10.0.14.0/24"]
+  ]
+  db_sg_ids = [
+    module.tree_tire_web_infra.vpc_resources.security_groups["pri_db_sg"]
   ]
 }
 output "info" {
