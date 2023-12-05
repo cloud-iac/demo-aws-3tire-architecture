@@ -27,12 +27,12 @@ resource "aws_security_group_rule" "ingress_bestion" {
   security_group_id = local.sg_groups.pub_bestion_sg
 }
 
-//80,443,3000 퍼블릭 alb 보안 그룹만 허용, 22 베스천 그룹 허용
+//80,443,8080 퍼블릭 alb 보안 그룹만 허용, 22 베스천 그룹 허용
 resource "aws_security_group_rule" "ingress_front" {
   for_each = {
     80   = "pub_alb_sg"
     443  = "pub_alb_sg"
-    3000 = "pub_alb_sg"
+    8080 = "pri_alb_sg"
     22   = "pub_bestion_sg"
   }
   type                     = "ingress"
