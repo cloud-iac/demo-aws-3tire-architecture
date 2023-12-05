@@ -14,7 +14,7 @@ resource "aws_launch_template" "back_template" {
     systemctl enable docker.service
 
     docker pull lundaljung/demo-ci-cd-backend:latest
-    docker run --net="host" -d --name demo-ci-cd-backend -p 8080:8080 lundaljung/demo-ci-cd-backend:latest
+    docker run -d --name demo-ci-cd-backend -p 8080:8080 lundaljung/demo-ci-cd-backend:latest
     EOT
   )
   lifecycle {

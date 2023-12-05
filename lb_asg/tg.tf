@@ -24,12 +24,12 @@ resource "aws_lb_target_group" "pri_alb_tg" {
   vpc_id   = var.vpc_id
 
   health_check {
-    path = "/api/v1/healthz"
+    path = "/healthz"
     port                = 8080
     protocol            = "HTTP"
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-499"
+    matcher             = "200"
   }
   tags = {
     Name = "pri_alb_tg"

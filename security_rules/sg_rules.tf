@@ -48,6 +48,7 @@ resource "aws_security_group_rule" "ingress_alb_pri" {
   for_each = {
     80  = "pri_front_sg"
     443 = "pri_front_sg"
+    8080 = "pri_front_sg"
   }
   type                     = "ingress"
   to_port                  = each.key
