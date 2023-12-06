@@ -15,7 +15,7 @@ resource "aws_launch_template" "front_template" {
     systemctl enable docker.service
 
     docker pull lundaljung/demo-ci-cd-frontend:latest
-    docker run -d --name frontend -p 80:80 lundaljung/demo-ci-cd-frontend:latest
+    docker run -d --name frontend -p 80:3000 lundaljung/demo-ci-cd-frontend:latest
     EOT 
   )
   lifecycle {

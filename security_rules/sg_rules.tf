@@ -7,6 +7,7 @@ resource "aws_security_group_rule" "ingress_alb_pub" {
     80  = ["0.0.0.0/0"]
     443 = ["0.0.0.0/0"]
     3000 = ["0.0.0.0/0"]
+    8080 = ["0.0.0.0/0"]
   }
   type              = "ingress"
   to_port           = each.key
@@ -51,6 +52,7 @@ resource "aws_security_group_rule" "ingress_alb_pri" {
     80  = "pri_front_sg"
     443 = "pri_front_sg"
     8080 = "pri_front_sg"
+    3000 = "pri_front_sg"
   }
   type                     = "ingress"
   to_port                  = each.key
@@ -65,6 +67,7 @@ resource "aws_security_group_rule" "ingress_back" {
     80   = "pri_alb_sg"
     443  = "pri_alb_sg"
     8080 = "pri_alb_sg"
+    3000 = "pri_alb_sg"
     22   = "pub_bestion_sg"
   }
   type                     = "ingress"
