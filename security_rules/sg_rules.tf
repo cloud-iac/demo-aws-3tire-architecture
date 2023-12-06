@@ -6,6 +6,7 @@ resource "aws_security_group_rule" "ingress_alb_pub" {
   for_each = {
     80  = ["0.0.0.0/0"]
     443 = ["0.0.0.0/0"]
+    3000 = ["0.0.0.0/0"]
   }
   type              = "ingress"
   to_port           = each.key
@@ -34,6 +35,7 @@ resource "aws_security_group_rule" "ingress_front" {
     443  = "pub_alb_sg"
     8080 = "pri_alb_sg"
     22   = "pub_bestion_sg"
+    3000 = "pub_alb_sg"
   }
   type                     = "ingress"
   to_port                  = each.key
