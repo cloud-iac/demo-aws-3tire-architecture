@@ -24,7 +24,7 @@ resource "aws_lb_target_group" "pri_alb_tg" {
   vpc_id   = var.vpc_id
 
   health_check {
-    path = "/healthz"
+    path                = "/healthz"
     port                = 80
     protocol            = "HTTP"
     healthy_threshold   = 3

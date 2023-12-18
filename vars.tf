@@ -1,8 +1,14 @@
-variable "ssh-key-path" {
-  default = "~/.ssh/aws_ec2.pem"
+variable "AWS_ACCESS_KEY" {}
+variable "AWS_SECRET_KEY" {}
+variable "db_name" {}
+variable "db_username" {}
+variable "db_password" {}
+
+variable "ssh-key" {
+  default = "aws-ec2"
 }
 variable "pjt_name" {
-  default = "aws_3_tire_web"
+  default = "3_tier_web"
 }
 variable "region" {
   default = "ap-northeast-2"

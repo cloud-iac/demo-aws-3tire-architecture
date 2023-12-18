@@ -1,4 +1,4 @@
-variable "ssh-key-path" {
+variable "ssh-key" {
   type = string
 }
 variable "bestion_sg_ids" {

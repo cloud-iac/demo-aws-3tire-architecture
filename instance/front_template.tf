@@ -2,7 +2,7 @@ resource "aws_launch_template" "front_template" {
   name                   = "front_template"
   image_id               = "ami-09e70258ddbdf3c90"
   instance_type          = "t2.micro"
-  key_name               = "aws-ec2"
+  key_name               = var.ssh-key
   vpc_security_group_ids = var.front_sg_ids
   update_default_version = true
 
@@ -14,8 +14,8 @@ resource "aws_launch_template" "front_template" {
     systemctl start docker.service
     systemctl enable docker.service
 
-    docker pull lundaljung/demo-ci-cd-frontend:latest
-    docker run -d --name frontend -p 80:80 lundaljung/demo-ci-cd-frontend:latest
+    docker pull lundaljung/soldesk_pick_and_roll_front:latest
+    docker run -d --name frontend -p 80:80 lundaljung/soldesk_pick_and_roll_front:latest
     EOT 
   )
   lifecycle {
