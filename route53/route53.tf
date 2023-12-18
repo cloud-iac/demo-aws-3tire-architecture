@@ -1,5 +1,5 @@
 data "aws_route53_zone" "selected" {
-  name         = "lundaljung.com."
+  name         = "lundaljung.com"
   private_zone = false
 }
 resource "aws_route53_zone" "private" {
