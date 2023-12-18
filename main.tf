@@ -74,6 +74,15 @@ module "rds" {
     module.tree_tire_web_infra.vpc_resources.security_groups["pri_db_sg"]
   ]
 }
+module "route53" {
+  source = "./route53"
+  vpc_id = module.tree_tire_web_infra.vpc_resources.vpc
+  inter_alb_dns = module.lb_asg.pri_alb_dns
+  db_dns = module.rds.db_dns
+  public_alb_dns = module.lb_asg.pub_alb_dns
+  pri_alb_zone_id = module.lb_asg.pri_zone_id
+  pub_alb_zone_id = module.lb_asg.pub_zone_id
+}
 output "info" {
   value = {
     infra = module.tree_tire_web_infra.vpc_resources
@@ -82,5 +91,6 @@ output "info" {
     backend     = module.instance.back_template_id
     pub_alb_dns = module.lb_asg.pub_alb_dns
     pri_alb_dns = module.lb_asg.pri_alb_dns
+    db_dns = module.rds.db_dns
   }
 }
