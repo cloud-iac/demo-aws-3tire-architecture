@@ -13,8 +13,8 @@ resource "aws_launch_template" "back_template" {
     systemctl start docker.service
     systemctl enable docker.service
 
-    docker pull lundaljung/pick_and_roll_back:latest
-    docker run -d --name backend -p 80:80 lundaljung/pick_and_roll_back:latest
+    docker pull lundaljung/demo-ci-cd-backend:latest
+    docker run -d --name backend -p 80:80 lundaljung/demo-ci-cd-backend:latest
     EOT
   )
   lifecycle {
