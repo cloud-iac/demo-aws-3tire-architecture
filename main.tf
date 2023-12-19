@@ -32,6 +32,7 @@ module "instance" {
 }
 module "lb_asg" {
   source = "./lb_asg"
+  domain_name = var.domain_name
   vpc_id = module.tree_tire_web_infra.vpc_resources.vpc
 
   front_template_id = module.instance.front_template_id

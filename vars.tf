@@ -3,7 +3,7 @@ variable "AWS_SECRET_KEY" {}
 variable "db_name" {}
 variable "db_username" {}
 variable "db_password" {}
-
+variable "domain_name" {}
 variable "ssh-key" {
   default = "aws-ec2"
 }
